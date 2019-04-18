@@ -1,0 +1,24 @@
+.game-field{
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+.game-field__cell{
+  display: inline-block;
+  width: 50px;
+  //padding: 40px;
+  height: 50px;
+  text-align: center;
+  border: 1px solid #156f95 !important;
+  box-sizing: border-box;
+
+  &:hover{
+    background: rgb(9, 56, 67);
+  }
+}
+//
+//.game-field_row{
+//  &:hover{
+//    background: orange ;
+//  }
+//}
