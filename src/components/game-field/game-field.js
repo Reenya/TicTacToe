@@ -18,7 +18,7 @@ export default class GameField extends React.Component {
         if (field === null) return null;
 
         const gameField = field.map((row, rowIndex) => {
-            return <tr className="game-field_row table-dark"
+            return <tr className="game-field_row"
             key={this.generateKey()}>{row.map((cell, cellIndex) =>
                 <Cell
                     cellData={cell}
@@ -27,7 +27,14 @@ export default class GameField extends React.Component {
                     key={this.generateKey()}/>)}</tr>
         })
 
-        return <React.Fragment>{gameField}</React.Fragment>
+        return (
+            <table  className="game-field col-lg-9  col-md-12">
+                <tbody>
+                {gameField}
+                </tbody>
+
+            </table>
+        )
 
     }
 }

@@ -1,24 +1,51 @@
 .game-field{
-  font-size: 20px;
-  margin: 0 auto;
+  font-size: 25px;
+  //margin: 0 auto;
+  text-align: center;
+  max-width: 600px;
 }
 
 .game-field__cell{
-  display: inline-block;
   width: 50px;
   //padding: 40px;
   height: 50px;
-  text-align: center;
-  border: 1px solid #156f95 !important;
+  //text-align: center;
+  //vertical-align: middle;
+  //margin: auto;
+  color: white;
+  border: 2px solid #006582;
   box-sizing: border-box;
 
   &:hover{
     background: rgb(9, 56, 67);
   }
 }
-//
-//.game-field_row{
-//  &:hover{
-//    background: orange ;
-//  }
-//}
+
+@media  (max-width: 576px){
+  .game-field__cell {
+    width: 25px;
+    height: 25px;
+  }
+
+  .game-field {
+    font-size: 13px;
+    margin: 0 auto;
+    max-width: 300px;
+  }
+
+}
+
+
+@media  (min-width: 540px) and (max-width: 768px){
+  .game-field__cell {
+    width: 35px;
+    //padding: 40px;
+    height: 35px;
+  }
+
+  .game-field {
+    max-width: 420px;
+    font-size: 20px;
+  }
+
+}
