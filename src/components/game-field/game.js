@@ -5,7 +5,8 @@ export default class GamePlay extends React.Component {
     state = {
         field: null,
         fieldRender: [],
-        fieldSize: 12
+        fieldSize: 12,
+        countMoves: 0
 
     };
 
@@ -20,7 +21,7 @@ export default class GamePlay extends React.Component {
         for (let i = 0; i < fieldSize + 2; i++) {
             field[i] = [];
             for (let j = 0; j < fieldSize + 2; j++) {
-                field[i].push(new EmptyCell(i,j));
+                field[i].push(new EmptyCell(i, j));
             }
         }
         //create border
@@ -37,17 +38,23 @@ export default class GamePlay extends React.Component {
 
 
     playerMove = ({rowIndex, cellIndex}) => {
-        const newField = [...this.state.field];
-        newField[rowIndex + 1][cellIndex + 1] = new Step('player', cellIndex + 1, rowIndex + 1);
+        const {field} = this.state;
+        if (!this.isItStep(field[rowIndex + 1][cellIndex + 1])) {
+            const newField = [...field];
+            newField[rowIndex + 1][cellIndex + 1] = new Step('player', cellIndex + 1, rowIndex + 1);
 
-        this.setState({
-            field: newField
-        });
-        for (let i = 0;i<4;i++){
-            this.calculateNextMove();
+            this.setState({
+                field: newField,
+
+            });
+
+
+            for (let i = 0; i < 4; i++) {
+                this.calculateNextMove();
+            };
+            this.props.changeCountMoves();
+            this.pcMove();
         }
-
-        this.pcMove();
 
 
     };
@@ -67,13 +74,13 @@ export default class GamePlay extends React.Component {
     };
 
     isItStep = (item) => {
-        if (item.type !== ('emptyCell') ) return true;
+        if (item.type !== ('emptyCell')) return true;
 
         return false;
     };
 
-    isItBorder = (item) =>{
-        if (item.type === 'border' ) return true;
+    isItBorder = (item) => {
+        if (item.type === 'border') return true;
 
         return false;
     }
@@ -123,11 +130,9 @@ export default class GamePlay extends React.Component {
         const {field} = this.state;
         const coordsForMove = this.calculateCellPotential('player');
         const newField = field.slice();
-        field[coordsForMove.y][coordsForMove.x] = new Step('pc',coordsForMove.x,coordsForMove.y);
+        field[coordsForMove.y][coordsForMove.x] = new Step('pc', coordsForMove.x, coordsForMove.y);
         console.log(newField);
-        this.setState({
-
-        })
+        this.setState({})
         // const pcPotential = this.calculateCellPotential('pc');
     };
 
@@ -152,7 +157,7 @@ export default class GamePlay extends React.Component {
                 if (this.isItStep(cell) && cell.type === type) {
                     const nearCells = this.getArrayNearCells(cell);
 
-                    nearCells.forEach( (neighbour,direction ) => {
+                    nearCells.forEach((neighbour, direction) => {
                         if (!this.isItStep(neighbour) && !this.isItBorder(neighbour)) {
 
                             //for cells that may intersect in the future
@@ -164,7 +169,7 @@ export default class GamePlay extends React.Component {
                             if (this.isItStep(nextCell) && !this.isItBorder(nextCell)) {
                                 value2 = nextCell.stepPotential[oppositeSides[direction]]
                             }
-                            resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x],value1+value2);
+                            resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x], value1 + value2);
                         }
 
                     })
@@ -173,10 +178,10 @@ export default class GamePlay extends React.Component {
         }
 
         // return {x:1, y:2}
-         return this.findMax(resField);
+        return this.findMax(resField);
     };
 
-    findSumPotintialNearCells(cell){
+    findSumPotintialNearCells(cell) {
 
     }
 
@@ -185,14 +190,14 @@ export default class GamePlay extends React.Component {
 
         let max = 0;
         let coords = {};
-        arr.forEach( (row,rowIndex) => row.forEach( (col,colIndex) => {
+        arr.forEach((row, rowIndex) => row.forEach((col, colIndex) => {
             if (col > max) {
                 max = col;
                 coords = {y: rowIndex, x: colIndex};
             }
         }));
 
-        console.log(max,coords);
+        console.log(max, coords);
         return coords;
     }
 
@@ -227,8 +232,10 @@ export default class GamePlay extends React.Component {
     }
 
     render() {
+        const {countMoves} = this.state;
+
         return (
-            <GameField field={this.fieldRender()} playerMove={this.playerMove}/>
+            <GameField field={this.fieldRender()} playerMove={this.playerMove} moves={countMoves}/>
         )
     }
 
@@ -255,13 +262,14 @@ class BorderCell {
 };
 
 class EmptyCell {
-    constructor(y,x){
+    constructor(y, x) {
         this.y = y;
         this.x = x;
     }
-    type =  'emptyCell';
-    x =  null;
-    y =  null;
+
+    type = 'emptyCell';
+    x = null;
+    y = null;
 
 }
 

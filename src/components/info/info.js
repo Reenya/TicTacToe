@@ -2,46 +2,43 @@ import './info.scss';
 import React from "react";
 
 export default class Info extends React.Component {
+    state = {
+        moves: 0,
+        playerWin:0,
+        playerLose:0
+    }
     render() {
+        const {moves,playerWin,playerLose} = this.state;
         return (
             <React.Fragment>
-                <div className='col-lg-3  col-md-12'>
-                    <div className="card text-white bg-info mb-3 ">
-                        <div className="card-header">Header</div>
-                        <div className="card-body">
-                            <h4 className="card-title">Info card title</h4>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
+                <div className='col-lg-4  col-md-12'>
+                    <button className="info__button-restart">Restart <i className="fa fa-refresh"></i></button>
+
+                    <div className="info__stats">
+                        <div className="info">
+                            <div className="info__block">
+                                <div className="info__title">Moves</div>
+                                <div className="info__content">{this.props.moves}</div>
+                            </div>
+                        </div>
+
+                        <div className="info">
+                            <div className="info__block">
+                                <div className="info__title">Score</div>
+                                <div className="info__content">{playerWin} : {playerLose}</div>
+                            </div>
                         </div>
                     </div>
-                    <div className="card text-white bg-info mb-3 ">
-                        <div className="card-header">Header</div>
-                        <div className="card-body">
-                            <h4 className="card-title">Info card title</h4>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
+
+
+                    <div className="info info--rules">
+                        <div className="info__block">
+                            <div className="info__title">Rules</div>
+                            <div className="info__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores at commodi, delectus dolores maiores molestiae officia. Adipisci assumenda explicabo facere fugiat fugit labore necessitatibus omnis quaerat sed tenetur, velit!</div>
                         </div>
                     </div>
-                    <div className="card text-white bg-info mb-3 ">
-                        <div className="card-header">Header</div>
-                        <div className="card-body">
-                            <h4 className="card-title">Info card title</h4>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
-                        </div>
-                    </div>
-                    <div className="card text-white bg-info mb-3 ">
-                        <div className="card-header">Header</div>
-                        <div className="card-body">
-                            <h4 className="card-title">Info card title</h4>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
-                        </div>
-                    </div>
+
+
                 </div>
 
 

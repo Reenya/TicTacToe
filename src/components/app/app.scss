@@ -1,5 +1,18 @@
 .title {
-  color: white;
+  padding-top: 10px;
   font-size: 45px;
   padding-bottom: 25px;
+  //text-align: center;
+  text-align: left;
+  color: #fafffb;
+  padding-left: 6%;
+
+  //background: #006582;
+}
+
+@media (max-width: 1200px){
+  .title {
+    //text-align: left !important;
+    //color: orange;
+  }
 }
