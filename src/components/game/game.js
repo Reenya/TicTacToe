@@ -6,7 +6,9 @@ export default class GamePlay extends React.Component {
         field: null,
         fieldRender: [],
         fieldSize: 12,
-        countMoves: 0
+        countMoves: 0,
+        winner:null,
+        winSequence: []
 
     };
 
@@ -32,8 +34,6 @@ export default class GamePlay extends React.Component {
             field[i][fieldSize + 1] = new BorderCell();
         }
         this.setState({field});
-        this.fieldRender();
-        return field;
     };
 
 
@@ -51,9 +51,11 @@ export default class GamePlay extends React.Component {
 
             for (let i = 0; i < 4; i++) {
                 this.calculateNextMove();
-            };
+            }
+            ;
             this.props.changeCountMoves();
             this.pcMove();
+            this.testWin('player');
         }
 
 
@@ -74,13 +76,19 @@ export default class GamePlay extends React.Component {
     };
 
     isItStep = (item) => {
-        if (item.type !== ('emptyCell')) return true;
+        if (item.type !== ('emptyCell' || 'border')) return true;
 
         return false;
     };
 
     isItBorder = (item) => {
         if (item.type === 'border') return true;
+
+        return false;
+    };
+
+    isItEmpty = (item) =>{
+        if (item.type === 'emptyCell') return true;
 
         return false;
     }
@@ -90,7 +98,7 @@ export default class GamePlay extends React.Component {
         const nearCells = this.getArrayNearCells(cell);
         nearCells.forEach((neighbour, namberDirection) => {
             if (this.isItStep(neighbour)) {
-                if (this.isHaveSameType(cell, neighbour)) {
+                if (this.isHaveSameType(cell, neighbour)||this.isItBorder(neighbour)) {
                     this.recalculationPotencialRelatedCells(cell, neighbour, namberDirection)
                 }
             }
@@ -109,19 +117,49 @@ export default class GamePlay extends React.Component {
     }
 
     isHaveSameType = (cell, neighbour) => {
-        if (cell.type === neighbour.type || neighbour.type === 'border') return true
+        if (cell.type === neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour)) return true
         else return false;
     };
 
-    getArrayNearCells = (cell) => {
+    getArrayNearCells = ({y, x}) => {
 
         const {field} = this.state;
         return [
-            field[cell.y - 1][cell.x], field[cell.y - 1][cell.x + 1],
-            field[cell.y][cell.x + 1], field[cell.y + 1][cell.x + 1],
-            field[cell.y + 1][cell.x], field[cell.y + 1][cell.x - 1],
-            field[cell.y][cell.x - 1], field[cell.y - 1][cell.x - 1]
+            field[y - 1][x], field[y - 1][x + 1],
+            field[y][x + 1], field[y + 1][x + 1],
+            field[y + 1][x], field[y + 1][x - 1],
+            field[y][x - 1], field[y - 1][x - 1]
         ]
+    };
+
+    getNearCell({x, y}, direction) {
+        const {field} = this.state;
+        switch (direction) {
+            case 0:
+                return field[y - 1][x];
+                break;
+            case 1:
+                return field[y - 1][x + 1];
+                break;
+            case 2:
+                return field[y][x + 1];
+                break;
+            case 3:
+                return field[y + 1][x + 1];
+                break;
+            case 4:
+                return field[y + 1][x];
+                break;
+            case 5:
+                return field[y + 1][x - 1];
+                break;
+            case 6:
+                return field[y][x - 1];
+                break;
+            case 7:
+                return field[y - 1][x - 1];
+                break;
+        }
     }
 
 
@@ -131,7 +169,6 @@ export default class GamePlay extends React.Component {
         const coordsForMove = this.calculateCellPotential('player');
         const newField = field.slice();
         field[coordsForMove.y][coordsForMove.x] = new Step('pc', coordsForMove.x, coordsForMove.y);
-        console.log(newField);
         this.setState({})
         // const pcPotential = this.calculateCellPotential('pc');
     };
@@ -196,28 +233,88 @@ export default class GamePlay extends React.Component {
                 coords = {y: rowIndex, x: colIndex};
             }
         }));
-
-        console.log(max, coords);
         return coords;
+    };
+
+    testWin(type) {
+        const {field, fieldSize} = this.state;
+        for (let i = 1; i < fieldSize + 1; i++) {
+            for (let j = 1; j < fieldSize + 1; j++) {
+                this.findCrossesNeighbour(field[i][j]);
+            }
+        }
+
+
+    }
+
+    findCrossesNeighbour(cell) {
+        const neighbours = this.getArrayNearCells(cell);
+        neighbours.forEach((nearCell, direction) => {
+
+            if (this.isHaveSameType(cell,nearCell)) {
+                console.log(cell.type,nearCell.type);
+                console.log(nearCell,direction,2,[cell,nearCell]);
+                let res = this.oneLineMatch(nearCell,direction,2,[cell,nearCell]);
+                if (res) {
+                    this.setState({
+                        winner: res[0].type,
+                        winSequence: res
+                    })
+                    console.log(this.state.win);
+                    this.props.setWinner(res[0].type);
+                }
+            }
+
+        })
+
+    };
+
+    oneLineMatch = (cell, direction, count, array) => {
+
+        if (count === 5) {return array}
+        else {
+            const neighbours = this.getNearCell(cell, direction);
+            if (!this.isHaveSameType(cell, neighbours)) {return null};
+            return this.oneLineMatch(neighbours, direction, count + 1, [...array,neighbours]);
+
+        }
     }
 
     //generate array of game field with values for correct render
     fieldRender = () => {
-        const {field, fieldRender, fieldSize} = this.state;
-
+        const {field, fieldRender, fieldSize,winSequence} = this.state;
         if (!field) return [];
+        //mark win sequence
+        const copyField = field.slice();
+        // console.log(copyField);
+
+        winSequence.forEach( (item) => {
+            console.log('hah',copyField[item.y][item.x].win);
+            copyField[item.y][item.x].win =true;
+
+        });
+
+
         const newField = [];
         for (let i = 1; i < fieldSize + 1; i++) {
             newField[i - 1] = [];
             for (let j = 1; j < fieldSize + 1; j++) {
-                const item = field [i][j];
+                const item = copyField [i][j];
+                const markWin = item.win? 'mark-win' : null;
+                console.log('markWin',markWin)
                 if (!this.isItStep(item)) newField[i - 1].push(' ');
                 else {
-                    if (item.type === 'player') newField[i - 1].push(<i className="fa fa-times"></i>)
-                    else newField[i - 1].push(<i className="fa fa-circle-o"></i>)
+                    if (item.type === 'player') newField[i - 1].push(<i className={`fa fa-times ${markWin}`}></i>)
+                    else newField[i - 1].push(<i className={`fa fa-circle-o ${markWin}`}></i>)
                 }
             }
         }
+
+        // winSequence.forEach( (item) => {
+        //     console.log('hah',newField[item.y-1][item.x-1]);
+        //     newField[item.y-1][item.x-1].className.add('markWin');
+        //
+        // });
         return newField;
         // return field.map((row) => row.map(
         //     (item) => {
@@ -232,10 +329,15 @@ export default class GamePlay extends React.Component {
     }
 
     render() {
-        const {countMoves} = this.state;
+        const {countMoves,winner,winSequence} = this.state;
+        const {setWinner} = this.props;
 
         return (
-            <GameField field={this.fieldRender()} playerMove={this.playerMove} moves={countMoves}/>
+            <GameField field={this.fieldRender()}
+                       playerMove={this.playerMove}
+                       moves={countMoves}
+                       winner = {winner}
+                       />
         )
     }
 
@@ -254,6 +356,7 @@ class Step {
     type = null;
     x = null;
     y = null;
+    win = false;
 }
 
 class BorderCell {
