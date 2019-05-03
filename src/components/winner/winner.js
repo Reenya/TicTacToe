@@ -1,17 +1,18 @@
 import React from "react";
+import {ButtonContinue} from "../buttons";
 
 export default class Winner extends React.Component{
     render() {
-        const {winner} = this.props;
-        const message = 'You are win!'+winner;
+        const {winner,continueAction} = this.props;
+        const message = winner==='player'? 'You are a winner! Congrats!' : 'You lose. Sorry :(';
         return(
             <div className="">
                 <div className="info winner">
                     <div className="info__block">
                         <div className="info__title">{message}</div>
-                        <div className="info__content"><button className="winner__button info__button-restart">
-                            continue
-                        </button></div>
+                        <div className="info__content">
+                            <ButtonContinue continueAction={continueAction}/>
+                        </div>
                     </div>
                 </div>
 

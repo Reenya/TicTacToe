@@ -1,16 +1,16 @@
 import React from "react";
 import Button from "../button";
 
-const ButtonContinue = () => {
+const ButtonContinue = ({continueAction}) => {
     return(
-        <Button textButton="Continue"/>
+        <Button action={continueAction}> Continue </Button>
     )
 };
 
-const ButtonRestart = () => {
+const ButtonRestart = ({restartAction}) => {
     return(
-        <Button textButton="Continue"/>
+        <Button action={restartAction}> Restart <i className="fa fa-refresh"></i> </Button>
     )
 };
 
-export {ButtonContinue};
+export {ButtonContinue,ButtonRestart};

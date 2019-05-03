@@ -32,8 +32,6 @@ export default class GamePlay extends React.Component {
         if (prevProps.restart === false && this.props.restart === true) {
             this.gameRestart();
         }
-        console.log(prevProps, prevState);
-        console.log(this.props.restart);
     }
 
 
@@ -272,8 +270,6 @@ export default class GamePlay extends React.Component {
         neighbours.forEach((nearCell, direction) => {
 
             if (this.isHaveSameType(cell,nearCell)) {
-                console.log(cell.type,nearCell.type);
-                console.log(nearCell,direction,2,[cell,nearCell]);
                 let res = this.oneLineMatch(nearCell,direction,2,[cell,nearCell]);
                 if (res) {
                     this.setState({
@@ -282,6 +278,7 @@ export default class GamePlay extends React.Component {
                     })
                     console.log(this.state.win);
                     this.props.setWinner(res[0].type);
+
                 }
             }
 

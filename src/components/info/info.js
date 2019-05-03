@@ -1,6 +1,7 @@
 import './info.scss';
 import React from "react";
 import Winner from "../winner/winner";
+import {ButtonRestart} from "../buttons";
 
 export default class Info extends React.Component {
     state = {
@@ -9,16 +10,16 @@ export default class Info extends React.Component {
     }
 
     render() {
-        const {restart,countMoves,playerWin,playerLose,winner} = this.props;
+        const {restartAction,continueAction,countMoves,playerWin,playerLose,winner} = this.props;
 
-        const winMessage = winner? <Winner winner={winner}/> : null;
+        const winMessage = winner? <Winner winner={winner}
+                                           continueAction = {continueAction}/> : null;
         return (
             <div className='col-lg-4  col-md-12'>
 
                 {winMessage}
 
-                <button className="info__button-restart"
-                        onClick={() => restart()}>Restart <i className="fa fa-refresh"></i></button>
+                <ButtonRestart restartAction = {restartAction}/>
 
                 <div className="info__stats">
                     <div className="info">

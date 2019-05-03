@@ -4,7 +4,7 @@ import '../game/game'
 import Game from "../game/game";
 import Info from "../info/info";
 import Button from "../button/button";
-import {ButtonContinue} from "../buttons/buttons";
+import {ButtonContinue, ButtonRestart} from "../buttons/buttons";
 
 export default class App extends React.Component {
     state = {
@@ -21,8 +21,14 @@ export default class App extends React.Component {
         }))
     };
 
-
-    restart = () => {
+    continueAction =() => {
+        this.setState({
+            countMoves: 0,
+            restart:true,
+            winner: null
+        });
+    }
+    restartAction = () => {
         this.setState({
             countMoves: 0,
             playerWin: 0,
@@ -37,9 +43,18 @@ export default class App extends React.Component {
     }
 
     setWinner = (win) => {
-        this.setState({
-            winner: win
-        })
+        console.log('что за хуйня')
+        if (win==='player') {
+            this.setState((state) => ({
+                winner: win,
+                playerWin: state.playerWin+1
+            }))
+        } else {
+            this.setState((state) => ({
+                winner: win,
+                playerLose: state.playerLose+1
+            }))
+        }
     }
 
 
@@ -53,10 +68,10 @@ export default class App extends React.Component {
                            playerWin={playerWin}
                            playerLose={playerLose}
                            winner={winner}
-                           restart={this.restart }/>
+                           restartAction ={this.restartAction}
+                           continueAction ={this.continueAction}/>
         return (
             <div className="container">
-                <ButtonContinue/>
                 <div className="row ">
                     <h1 className='title col-lg-1'>TicTacToy</h1>
                 </div>
