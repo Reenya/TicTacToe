@@ -3,6 +3,8 @@ import './app.scss';
 import '../game/game'
 import Game from "../game/game";
 import Info from "../info/info";
+import Button from "../button/button";
+import {ButtonContinue} from "../buttons/buttons";
 
 export default class App extends React.Component {
     state = {
@@ -10,7 +12,7 @@ export default class App extends React.Component {
         playerWin: 0,
         playerLose: 0,
         winner: null,
-        restart:true
+        restart: false
     };
 
     changeCountMoves = () => {
@@ -24,13 +26,15 @@ export default class App extends React.Component {
         this.setState({
             countMoves: 0,
             playerWin: 0,
-            playerLose: 0
+            playerLose: 0,
+            restart:true
         });
 
-        this.setState( (state) => ({
-            restart: !state.restart
-        }))
     };
+
+    restartEnd = () => {
+        this.setState({restart:false})
+    }
 
     setWinner = (win) => {
         this.setState({
@@ -41,23 +45,25 @@ export default class App extends React.Component {
 
     render() {
         const {countMoves, playerWin, playerLose, winner,restart} = this.state;
-
-        const game = restart? <Game changeCountMoves={this.changeCountMoves}
-                                    setWinner = {this.setWinner}/> : null
+        const game = <Game changeCountMoves={this.changeCountMoves}
+                           setWinner = {this.setWinner}
+                            restart = {restart}
+                            restartEnd = {this.restartEnd}/>;
+        const info = <Info moves={countMoves}
+                           playerWin={playerWin}
+                           playerLose={playerLose}
+                           winner={winner}
+                           restart={this.restart }/>
         return (
             <div className="container">
+                <ButtonContinue/>
                 <div className="row ">
                     <h1 className='title col-lg-1'>TicTacToy</h1>
                 </div>
 
                 <div className="row justify-content-center">
                     {game}
-
-                    <Info moves={countMoves}
-                          playerWin={playerWin}
-                          playerLose={playerLose}
-                          winner={winner}
-                          restart={this.restart}/>
+                    {info}
                 </div>
 
             </div>

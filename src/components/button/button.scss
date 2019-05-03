@@ -1,0 +1,19 @@
+.button {
+  width: 100%;
+  padding: 15px;
+  outline: none;
+  background: #ffa50d;
+  border: 2px solid #ff7f00;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 23px;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.31);
+  &:focus{
+    outline: none;
+  }
+
+  &:hover{
+    background: #ffb500;
+  }
+}

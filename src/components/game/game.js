@@ -4,7 +4,6 @@ import GameField from "./game-field";
 export default class GamePlay extends React.Component {
     state = {
         field: null,
-        fieldRender: [],
         fieldSize: 12,
         countMoves: 0,
         winner:null,
@@ -12,8 +11,29 @@ export default class GamePlay extends React.Component {
 
     };
 
+    gameRestart = () => {
+        this.setState({
+            field: null,
+            fieldRender: [],
+            fieldSize: 12,
+            countMoves: 0,
+            winner:null,
+            winSequence: []
+        })
+        this.createGameField();
+        this.props.restartEnd();
+    }
+
     componentDidMount() {
         this.createGameField();
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if (prevProps.restart === false && this.props.restart === true) {
+            this.gameRestart();
+        }
+        console.log(prevProps, prevState);
+        console.log(this.props.restart);
     }
 
 
@@ -282,7 +302,7 @@ export default class GamePlay extends React.Component {
 
     //generate array of game field with values for correct render
     fieldRender = () => {
-        const {field, fieldRender, fieldSize,winSequence} = this.state;
+        const {field, fieldSize,winSequence} = this.state;
         if (!field) return [];
         //mark win sequence
         const copyField = field.slice();
@@ -301,7 +321,6 @@ export default class GamePlay extends React.Component {
             for (let j = 1; j < fieldSize + 1; j++) {
                 const item = copyField [i][j];
                 const markWin = item.win? 'mark-win' : null;
-                console.log('markWin',markWin)
                 if (!this.isItStep(item)) newField[i - 1].push(' ');
                 else {
                     if (item.type === 'player') newField[i - 1].push(<i className={`fa fa-times ${markWin}`}></i>)
