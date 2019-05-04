@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d7060ee-eab8-4917-8f88-b3793b896159" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/winner/winner.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/winner/winner.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -96,11 +94,10 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/game/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="291" column="34" lean-forward="true" selection-start-line="291" selection-start-column="34" selection-end-line="291" selection-end-column="34" />
+            <state relative-caret-position="309">
+              <caret line="130" column="13" lean-forward="true" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#5513#6764#0" />
                 <element signature="e#6911#7236#0" />
               </folding>
             </state>
@@ -278,12 +275,12 @@
       <updated>1555493170126</updated>
       <workItem from="1555493171487" duration="46054000" />
       <workItem from="1555661993661" duration="52694000" />
-      <workItem from="1556798302655" duration="22568000" />
+      <workItem from="1556798302655" duration="24687000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121316000" />
+    <option name="totallyTimeSpent" value="123435000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -388,7 +385,6 @@
           <caret line="277" column="29" selection-start-line="277" selection-start-column="29" selection-end-line="277" selection-end-column="29" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#5513#6764#0" />
             <element signature="e#6911#7236#0" />
           </folding>
         </state>
@@ -438,7 +434,6 @@
           <caret line="178" column="28" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#5513#6764#0" />
             <element signature="e#6911#7236#0" />
           </folding>
         </state>
@@ -614,11 +609,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/game/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="291" column="34" lean-forward="true" selection-start-line="291" selection-start-column="34" selection-end-line="291" selection-end-column="34" />
+        <state relative-caret-position="309">
+          <caret line="130" column="13" lean-forward="true" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#5513#6764#0" />
             <element signature="e#6911#7236#0" />
           </folding>
         </state>

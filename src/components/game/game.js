@@ -115,20 +115,33 @@ export default class GamePlay extends React.Component {
         return false;
     }
 
-    searchPotencialIntersections = (cell) => {
+    searchPotentialIntersections = (cell) => {
         const {field} = this.state;
         const nearCells = this.getArrayNearCells(cell);
         nearCells.forEach((neighbour, namberDirection) => {
             if (this.isItStep(neighbour)) {
                 if (this.isHaveSameType(cell, neighbour) || this.isItBorder(neighbour)) {
-                    this.recalculationPotencialRelatedCells(cell, neighbour, namberDirection)
+                    this.recalculationPotentialIdenticalCells(cell, neighbour, namberDirection)
                 }
+
+                if (this.isHaveOppositeType(cell,neighbour)) {
+                    this.recalculationPotentialOppositeTypeCells(cell, neighbour, namberDirection)
+                }
+
             }
         })
 
     };
+    recalculationPotentialOppositeTypeCells = (cell, neighbour, namberDirection) => {
+        const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
+        const num = cell.stepPotential[namberDirection];
+        neighbour.stepPotential[namberDirection] += -1;
+        cell.stepPotential[oppositeSides[namberDirection]] += -1;
+        cell.stepPotential[namberDirection] = 0;
+        neighbour.stepPotential[oppositeSides[namberDirection]] = 0;
+    }
 
-    recalculationPotencialRelatedCells = (cell, neighbour, namberDirection) => {
+    recalculationPotentialIdenticalCells = (cell, neighbour, namberDirection) => {
         const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
         const num = cell.stepPotential[namberDirection];
         neighbour.stepPotential[namberDirection] += cell.stepPotential[namberDirection];
@@ -140,6 +153,11 @@ export default class GamePlay extends React.Component {
 
     isHaveSameType = (cell, neighbour) => {
         if (cell.type === neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour)) return true
+        else return false;
+    };
+
+    isHaveOppositeType = (cell, neighbour) => {
+        if (cell.type !== neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour)) return true
         else return false;
     };
 
@@ -207,8 +225,6 @@ export default class GamePlay extends React.Component {
             }
         }
 
-        // console.log('это тот самый массив',resField);
-
         for (let i = 1; i < fieldSize + 1; i++) {
             for (let j = 1; j < fieldSize + 1; j++) {
                 const cell = field[i][j]; //temp cell
@@ -236,7 +252,6 @@ export default class GamePlay extends React.Component {
             }
         }
 
-        // return {x:1, y:2}
         return this.findMax(resField);
     };
 
@@ -269,8 +284,8 @@ export default class GamePlay extends React.Component {
         const neighbours = this.getArrayNearCells(cell);
         neighbours.forEach((nearCell, direction) => {
 
-            if (this.isHaveSameType(cell,nearCell)) {
-                let res = this.oneLineMatch(nearCell,direction,2,[cell,nearCell]);
+            if (this.isHaveSameType(cell, nearCell)) {
+                let res = this.oneLineMatch(nearCell, direction, 2, [cell, nearCell]);
                 if (res) {
                     this.setState({
                         winner: res[0].type,
@@ -301,7 +316,7 @@ export default class GamePlay extends React.Component {
 
     //generate array of game field with values for correct render
     fieldRender = () => {
-        const {field, fieldSize, winSequence,winner} = this.state;
+        const {field, fieldSize, winSequence, winner} = this.state;
 
 
         if (!field) return [];
