@@ -124,9 +124,9 @@ export default class GamePlay extends React.Component {
                     this.recalculationPotentialIdenticalCells(cell, neighbour, namberDirection)
                 }
 
-                if (this.isHaveOppositeType(cell,neighbour)) {
-                    this.recalculationPotentialOppositeTypeCells(cell, neighbour, namberDirection)
-                }
+                // if (this.isHaveOppositeType(cell,neighbour)) {
+                //     this.recalculationPotentialOppositeTypeCells(cell, neighbour, namberDirection)
+                // }
 
             }
         })
