@@ -91,7 +91,7 @@ export default class GamePlay extends React.Component {
             for (let j = 1; j < fieldSize + 1; j++) {
                 const tempCell = field[i][j]
                 if (this.isItStep(tempCell)) {
-                    this.searchPotencialIntersections(tempCell)
+                    this.searchPotentialIntersections(tempCell)
                 }
             }
         }
@@ -157,7 +157,7 @@ export default class GamePlay extends React.Component {
     };
 
     isHaveOppositeType = (cell, neighbour) => {
-        if (cell.type !== neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour)) return true
+        if (cell.type !== neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour) && !this.isItBorder(neighbour)) return true
         else return false;
     };
 

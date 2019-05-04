@@ -41,9 +41,12 @@ export default class Info extends React.Component {
                 <div className="info info--rules">
                     <div className="info__block">
                         <div className="info__title">Rules</div>
-                        <div className="info__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                            asperiores at commodi, delectus dolores maiores molestiae officia. Adipisci assumenda
-                            explicabo facere fugiat fugit labore necessitatibus omnis quaerat sed tenetur, velit!
+                        <div className="info__content">
+                            <div>1. You have field 15x15</div>
+                            <div>2. You need to collect 5 crosses in a row (including vertical and diagonal axes)</div>
+                            <div>3. AI will disturb you and seek to collect their 5 crosses</div>
+                            <div>4. So go and win!</div>
+
                         </div>
                     </div>
                 </div>
