@@ -4,7 +4,7 @@ import {ButtonContinue} from "../buttons";
 export default class Winner extends React.Component{
     render() {
         const {winner,continueAction} = this.props;
-        const message = winner==='player'? 'You are a winner! Congrats!' : 'You lose. Sorry :(';
+        const message = winner==='player'? 'You are a winner!' : 'You lose. Sorry :(';
         return(
             <div className="">
                 <div className="info winner">

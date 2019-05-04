@@ -43,7 +43,6 @@ export default class App extends React.Component {
     }
 
     setWinner = (win) => {
-        console.log('что за хуйня')
         if (win==='player') {
             this.setState((state) => ({
                 winner: win,

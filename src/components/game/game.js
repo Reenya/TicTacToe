@@ -6,7 +6,7 @@ export default class GamePlay extends React.Component {
         field: null,
         fieldSize: 12,
         countMoves: 0,
-        winner:null,
+        winner: null,
         winSequence: []
 
     };
@@ -17,7 +17,7 @@ export default class GamePlay extends React.Component {
             fieldRender: [],
             fieldSize: 12,
             countMoves: 0,
-            winner:null,
+            winner: null,
             winSequence: []
         })
         this.createGameField();
@@ -28,7 +28,11 @@ export default class GamePlay extends React.Component {
         this.createGameField();
     }
 
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps, prevState) {
+        if (!prevState.winner && this.state.winner) {
+            this.props.setWinner(this.state.winner);
+        }
+
         if (prevProps.restart === false && this.props.restart === true) {
             this.gameRestart();
         }
@@ -105,7 +109,7 @@ export default class GamePlay extends React.Component {
         return false;
     };
 
-    isItEmpty = (item) =>{
+    isItEmpty = (item) => {
         if (item.type === 'emptyCell') return true;
 
         return false;
@@ -116,7 +120,7 @@ export default class GamePlay extends React.Component {
         const nearCells = this.getArrayNearCells(cell);
         nearCells.forEach((neighbour, namberDirection) => {
             if (this.isItStep(neighbour)) {
-                if (this.isHaveSameType(cell, neighbour)||this.isItBorder(neighbour)) {
+                if (this.isHaveSameType(cell, neighbour) || this.isItBorder(neighbour)) {
                     this.recalculationPotencialRelatedCells(cell, neighbour, namberDirection)
                 }
             }
@@ -236,10 +240,6 @@ export default class GamePlay extends React.Component {
         return this.findMax(resField);
     };
 
-    findSumPotintialNearCells(cell) {
-
-    }
-
     findMax = (arr) => {
         const {fieldSize} = this.state;
 
@@ -276,9 +276,6 @@ export default class GamePlay extends React.Component {
                         winner: res[0].type,
                         winSequence: res
                     })
-                    console.log(this.state.win);
-                    this.props.setWinner(res[0].type);
-
                 }
             }
 
@@ -288,36 +285,41 @@ export default class GamePlay extends React.Component {
 
     oneLineMatch = (cell, direction, count, array) => {
 
-        if (count === 5) {return array}
+        if (count === 5) {
+            return array
+        }
         else {
             const neighbours = this.getNearCell(cell, direction);
-            if (!this.isHaveSameType(cell, neighbours)) {return null};
-            return this.oneLineMatch(neighbours, direction, count + 1, [...array,neighbours]);
+            if (!this.isHaveSameType(cell, neighbours)) {
+                return null
+            }
+            ;
+            return this.oneLineMatch(neighbours, direction, count + 1, [...array, neighbours]);
 
         }
     }
 
     //generate array of game field with values for correct render
     fieldRender = () => {
-        const {field, fieldSize,winSequence} = this.state;
+        const {field, fieldSize, winSequence,winner} = this.state;
+
+
         if (!field) return [];
         //mark win sequence
         const copyField = field.slice();
         // console.log(copyField);
 
-        winSequence.forEach( (item) => {
-            console.log('hah',copyField[item.y][item.x].win);
-            copyField[item.y][item.x].win =true;
-
+        winSequence.forEach((item) => {
+            console.log('hah', copyField[item.y][item.x].win);
+            copyField[item.y][item.x].win = true;
         });
-
 
         const newField = [];
         for (let i = 1; i < fieldSize + 1; i++) {
             newField[i - 1] = [];
             for (let j = 1; j < fieldSize + 1; j++) {
                 const item = copyField [i][j];
-                const markWin = item.win? 'mark-win' : null;
+                const markWin = item.win ? 'mark-win' : null;
                 if (!this.isItStep(item)) newField[i - 1].push(' ');
                 else {
                     if (item.type === 'player') newField[i - 1].push(<i className={`fa fa-times ${markWin}`}></i>)
@@ -326,34 +328,20 @@ export default class GamePlay extends React.Component {
             }
         }
 
-        // winSequence.forEach( (item) => {
-        //     console.log('hah',newField[item.y-1][item.x-1]);
-        //     newField[item.y-1][item.x-1].className.add('markWin');
-        //
-        // });
         return newField;
-        // return field.map((row) => row.map(
-        //     (item) => {
-        //
-        //         if (typeof item === 'number')  return ' '
-        //         else {
-        //             if (item.type === 'player') return <i className="fa fa-times"></i>
-        //             else return <i className="fa fa-circle-o"></i>
-        //         }
-        // }));
 
     }
 
     render() {
-        const {countMoves,winner,winSequence} = this.state;
+        const {countMoves, winner, winSequence} = this.state;
         const {setWinner} = this.props;
 
         return (
             <GameField field={this.fieldRender()}
                        playerMove={this.playerMove}
                        moves={countMoves}
-                       winner = {winner}
-                       />
+                       winner={winner}
+            />
         )
     }
 
