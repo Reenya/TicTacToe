@@ -121,10 +121,11 @@ export default class GamePlay extends React.Component {
     };
 
     isHaveOppositeType = (cell, neighbour) => {
-        if (cell.type !== neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour) && !this.isItBorder(neighbour)) return true
+        if (cell.type !== neighbour.type && !this.isItEmpty(cell) && !this.isItEmpty(neighbour) && !this.isItBorder(neighbour) && !this.isItBorder(cell)) return true
         else return false;
     };
 
+    //various variants are computed with a sequence connection
     searchPotentialIntersections = (cell) => {
         const {field} = this.state;
         const nearCells = this.getArrayNearCells(cell);
@@ -134,9 +135,7 @@ export default class GamePlay extends React.Component {
                     this.recalculationPotentialIdenticalCells(cell, neighbour, namberDirection)
                 }
 
-                if (this.isHaveOppositeType(cell,neighbour) && cell.stepPotential[namberDirection]<=-10) {
-
-
+                if (this.isHaveOppositeType(cell, neighbour) && cell.stepPotential[namberDirection] <= -10) {
                     this.recalculationPotentialOppositeTypeCells(cell, neighbour, namberDirection)
                 }
 
@@ -146,8 +145,8 @@ export default class GamePlay extends React.Component {
     };
     recalculationPotentialOppositeTypeCells = (cell, neighbour, namberDirection) => {
         const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
-        console.log('в сторону клетки противника',cell.stepPotential[namberDirection]);
-        console.log('прибавится к потенциалу цепочки',cell.stepPotential[oppositeSides[namberDirection]]);
+        console.log('в сторону клетки противника', cell.stepPotential[namberDirection]);
+        console.log('прибавится к потенциалу цепочки', cell.stepPotential[oppositeSides[namberDirection]]);
         cell.stepPotential[namberDirection] = -100;
         cell.stepPotential[oppositeSides[namberDirection]] = -1;
 
@@ -163,7 +162,6 @@ export default class GamePlay extends React.Component {
         neighbour.stepPotential[oppositeSides[namberDirection]] = 0;
 
     }
-
 
 
     getArrayNearCells = ({y, x}) => {
@@ -221,7 +219,7 @@ export default class GamePlay extends React.Component {
     calculateCellPotential = (type) => {
         const {fieldSize, field} = this.state;
 
-        //create array for cell potential for move
+        //create empty array for cell potential for move
         const resField = [];
         for (let i = 0; i < fieldSize + 2; i++) {
             resField[i] = [];
@@ -229,31 +227,41 @@ export default class GamePlay extends React.Component {
                 resField[i].push(0);
             }
         }
-
+        //looking for the maximum potential for each cell
         for (let i = 1; i < fieldSize + 1; i++) {
             for (let j = 1; j < fieldSize + 1; j++) {
-                const cell = field[i][j]; //temp cell
+                const cell = field[i][j]; //initial cell
 
                 if (this.isItStep(cell) && cell.type === type) {
                     const nearCells = this.getArrayNearCells(cell);
-
                     nearCells.forEach((neighbour, direction) => {
-                        if (!this.isItStep(neighbour) && !this.isItBorder(neighbour)) {
+                        if (this.isItEmpty(neighbour)) {
 
-                            //for cells that may intersect in the future
                             const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
 
-                            const nextCell = this.getNearCell(cell,direction);
+                            //for cells that may intersect in the future in one line
+                            const nextCell = this.getNearCell(neighbour, direction); //it's the cell which is located one cell away from the initial cell
                             const value1 = cell.stepPotential[direction];
                             let value2 = 0;
-                            if (this.isItStep(nextCell) && !this.isItBorder(nextCell)) {
+                            if (this.isItStep(nextCell) && !this.isItBorder(nextCell)&&this.isHaveSameType(cell,nextCell)) {
                                 value2 = nextCell.stepPotential[oppositeSides[direction]]
                             }
 
-                            //for a cell that will have multiple intersections
+                            // for a cell that will has multiple intersections
                             const nextNearCells = this.getArrayNearCells(neighbour);
+                            let countDangerousPotentials = 0;
+                            nextNearCells.forEach((nextCell, nextCellDirection) => {
+                                if (this.isItStep(neighbour) && !this.isItBorder(nextCell)&&this.isHaveSameType(cell,nextCell)) {
+                                    if (nextCell.stepPotential[oppositeSides[nextCellDirection]] >=2) {
+                                        countDangerousPotentials++;
+                                    }
+                                }
+                            });
 
-                            resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x], value1 + value2);
+                            const intersectionPotential = countDangerousPotentials>=2? 3 : cell.stepPotential[direction];
+
+
+                            resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x], value1 + value2+0.5,intersectionPotential);
                         }
 
                     })
@@ -334,7 +342,6 @@ export default class GamePlay extends React.Component {
         // console.log(copyField);
 
         winSequence.forEach((item) => {
-            console.log('hah', copyField[item.y][item.x].win);
             copyField[item.y][item.x].win = true;
         });
 
