@@ -145,8 +145,6 @@ export default class GamePlay extends React.Component {
     };
     recalculationPotentialOppositeTypeCells = (cell, neighbour, namberDirection) => {
         const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
-        console.log('в сторону клетки противника', cell.stepPotential[namberDirection]);
-        console.log('прибавится к потенциалу цепочки', cell.stepPotential[oppositeSides[namberDirection]]);
         cell.stepPotential[namberDirection] = -100;
         cell.stepPotential[oppositeSides[namberDirection]] = -1;
 
@@ -209,9 +207,14 @@ export default class GamePlay extends React.Component {
     //there is methods for calculation next move for pc
     pcMove = () => {
         const {field} = this.state;
-        const coordsForMove = this.calculateCellPotential('player');
+        let coordsForMove = this.calculateCellPotential('player');
+        const coordsForMove2 = this.calculateCellPotential('pc');
+        // console.log(coordsForMove.potential+' '+coordsForMove2.potential);
+        if ((coordsForMove.potential-1) < coordsForMove2.potential &&coordsForMove2.potential>=1) {
+            coordsForMove = coordsForMove2;
+        }
         const newField = field.slice();
-        field[coordsForMove.y][coordsForMove.x] = new Step('pc', coordsForMove.x, coordsForMove.y);
+        field[coordsForMove.coords.y][coordsForMove.coords.x] = new Step('pc', coordsForMove.coords.x, coordsForMove.coords.y);
         this.setState({})
         // const pcPotential = this.calculateCellPotential('pc');
     };
@@ -261,7 +264,7 @@ export default class GamePlay extends React.Component {
                             const intersectionPotential = countDangerousPotentials>=2? 3 : cell.stepPotential[direction];
 
 
-                            resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x], value1 + value2+0.5,intersectionPotential);
+                            resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x], value1 + value2,intersectionPotential);
                         }
 
                     })
@@ -273,17 +276,17 @@ export default class GamePlay extends React.Component {
     };
 
     findMax = (arr) => {
-        const {fieldSize} = this.state;
-
         let max = 0;
         let coords = {};
-        arr.forEach((row, rowIndex) => row.forEach((col, colIndex) => {
-            if (col > max) {
-                max = col;
+        let potential = 0;
+        arr.forEach((row, rowIndex) => row.forEach((item, colIndex) => {
+            if (item > max) {
+                max = item;
                 coords = {y: rowIndex, x: colIndex};
+                potential = max;
             }
         }));
-        return coords;
+        return {coords,potential};
     };
 
     testWin(type) {

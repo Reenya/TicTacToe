@@ -94,8 +94,8 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/game/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="340" column="40" lean-forward="true" selection-start-line="340" selection-start-column="40" selection-end-line="340" selection-end-column="40" />
+            <state relative-caret-position="258">
+              <caret line="146" column="55" selection-start-line="146" selection-start-column="55" selection-end-line="146" selection-end-column="55" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#281#555#0" />
@@ -104,11 +104,9 @@
                 <element signature="e#376#972#0" />
                 <element signature="e#1020#1582#0" />
                 <element signature="e#2363#2792#0" />
-                <element signature="e#3546#3992#0" />
                 <element signature="e#3590#4037#0" />
                 <element signature="e#3547#3817#0" />
                 <element signature="e#3855#4617#0" />
-                <element signature="e#6911#7236#0" />
                 <element signature="e#7257#7497#0" />
                 <element signature="e#7974#8691#0" />
                 <element signature="e#8285#8591#0" />
@@ -302,12 +300,12 @@
       <updated>1555493170126</updated>
       <workItem from="1555493171487" duration="46054000" />
       <workItem from="1555661993661" duration="52694000" />
-      <workItem from="1556798302655" duration="49328000" />
+      <workItem from="1556798302655" duration="52819000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148076000" />
+    <option name="totallyTimeSpent" value="151567000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -418,11 +416,9 @@
             <element signature="e#376#972#0" />
             <element signature="e#1020#1582#0" />
             <element signature="e#2363#2792#0" />
-            <element signature="e#3546#3992#0" />
             <element signature="e#3590#4037#0" />
             <element signature="e#3547#3817#0" />
             <element signature="e#3855#4617#0" />
-            <element signature="e#6911#7236#0" />
             <element signature="e#7257#7497#0" />
             <element signature="e#7974#8691#0" />
             <element signature="e#8285#8591#0" />
@@ -480,11 +476,9 @@
             <element signature="e#376#972#0" />
             <element signature="e#1020#1582#0" />
             <element signature="e#2363#2792#0" />
-            <element signature="e#3546#3992#0" />
             <element signature="e#3590#4037#0" />
             <element signature="e#3547#3817#0" />
             <element signature="e#3855#4617#0" />
-            <element signature="e#6911#7236#0" />
             <element signature="e#7257#7497#0" />
             <element signature="e#7974#8691#0" />
             <element signature="e#8285#8591#0" />
@@ -662,8 +656,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/game/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="340" column="40" lean-forward="true" selection-start-line="340" selection-start-column="40" selection-end-line="340" selection-end-column="40" />
+        <state relative-caret-position="258">
+          <caret line="146" column="55" selection-start-line="146" selection-start-column="55" selection-end-line="146" selection-end-column="55" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#281#555#0" />
@@ -672,11 +666,9 @@
             <element signature="e#376#972#0" />
             <element signature="e#1020#1582#0" />
             <element signature="e#2363#2792#0" />
-            <element signature="e#3546#3992#0" />
             <element signature="e#3590#4037#0" />
             <element signature="e#3547#3817#0" />
             <element signature="e#3855#4617#0" />
-            <element signature="e#6911#7236#0" />
             <element signature="e#7257#7497#0" />
             <element signature="e#7974#8691#0" />
             <element signature="e#8285#8591#0" />
