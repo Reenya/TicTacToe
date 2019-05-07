@@ -1,3 +1,3 @@
-import Game from './game-field';
+import Game from './game';
 
 export default Game;

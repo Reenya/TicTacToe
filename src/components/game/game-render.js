@@ -1,18 +1,15 @@
 import './game-field.scss';
 import React from "react";
-import GamePlay from "./game";
-import Winner from "../winner/winner";
 
-export default class GameField extends React.Component {
+export default class GameRender extends React.Component {
 
 
     generateKey = () => Math.floor(Math.random() * 1000000);
 
     render() {
-        const {field, winner} = this.props;
+        const {field} = this.props;
 
-        if (field === null) return null;
-        const winNotification = winner ? <h1>You win!{winner}</h1> : null;
+        if (field === []) return null;
 
         const gameField = field.map((row, rowIndex) => {
             return <tr className="game-field_row"
@@ -46,12 +43,7 @@ export default class GameField extends React.Component {
     }
 }
 
-const Cell = ({cellData, playerMove, coords,winSequence}) => {
-    // const isInSequence = ({rowIndex, cellIndex}) => {
-    //     winSequence.forEach( (winCell) => {
-    //         if ()
-    //     })
-    // }
+const Cell = ({cellData, playerMove, coords}) => {
     return <td className="game-field__cell"
                onClick={() => playerMove(coords)}>
         {cellData}

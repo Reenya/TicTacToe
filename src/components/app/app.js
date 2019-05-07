@@ -1,10 +1,8 @@
 import React from "react";
+import Info from "../info";
+import Game from "../game";
+
 import './app.scss';
-import '../game/game'
-import Game from "../game/game";
-import Info from "../info/info";
-import Button from "../button/button";
-import {ButtonContinue, ButtonRestart} from "../buttons/buttons";
 
 export default class App extends React.Component {
     state = {
@@ -54,15 +52,17 @@ export default class App extends React.Component {
                 playerLose: state.playerLose+1
             }))
         }
-    }
-
+    };
 
     render() {
         const {countMoves, playerWin, playerLose, winner,restart} = this.state;
+
         const game = <Game changeCountMoves={this.changeCountMoves}
                            setWinner = {this.setWinner}
-                            restart = {restart}
-                            restartEnd = {this.restartEnd}/>;
+                           restart = {restart}
+                           restartEnd = {this.restartEnd}/>;
+
+
         const info = <Info moves={countMoves}
                            playerWin={playerWin}
                            playerLose={playerLose}
