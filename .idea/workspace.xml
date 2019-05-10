@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d7060ee-eab8-4917-8f88-b3793b896159" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/game/game-field.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game/game-render.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/game/game-logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game/game-logic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/game/game-render.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game/game-render.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/game/game-render.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game/game-render.scss" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,8 +40,8 @@
       <file leaf-file-name="game-render.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/game/game-render.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="525">
+              <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -277,12 +274,12 @@
       <workItem from="1556798302655" duration="53419000" />
       <workItem from="1557230155391" duration="21239000" />
       <workItem from="1557301481229" duration="3263000" />
-      <workItem from="1557507816735" duration="6876000" />
+      <workItem from="1557507816735" duration="7216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183545000" />
+    <option name="totallyTimeSpent" value="183885000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -694,8 +691,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/game/game-render.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+        <state relative-caret-position="525">
+          <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
         </state>
       </provider>
     </entry>
