@@ -38,7 +38,7 @@ export default class GameLogic {
 
     playerMove = (rowIndex, cellIndex) => {
         const {field} = this;
-        
+
         if (!isItStep(field[rowIndex + 1][cellIndex + 1])) {
             field[rowIndex + 1][cellIndex + 1] = new Step('player', cellIndex + 1, rowIndex + 1);
 

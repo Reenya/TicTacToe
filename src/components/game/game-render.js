@@ -1,5 +1,5 @@
-import './game-field.scss';
 import React from "react";
+import './game-render.scss';
 
 export default class GameRender extends React.Component {
 
