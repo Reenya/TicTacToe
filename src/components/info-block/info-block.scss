@@ -1,0 +1,30 @@
+.info-block{
+  font-size: 30px;
+  background: #2f303d;
+  width: 100%;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid #006582;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.31);
+  box-sizing: border-box;
+
+  &:hover {
+    background: #3b3c4b;
+  }
+}
+
+.info-block__title{
+  font-size: 30px;
+  margin-bottom: 5px;
+};
+
+.info-block--rules{
+  background: #01546e;
+  font-size: 18px;
+
+  &:hover{
+    background: #015f7a;
+  }
+}

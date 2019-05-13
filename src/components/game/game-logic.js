@@ -306,7 +306,7 @@ export default class GameLogic {
     }
 }
 
-//contanes info about step player or pc
+//contanes info-panel about step player or pc
 class Step {
     constructor(type, x, y) {
         this.type = type;

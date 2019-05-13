@@ -1,5 +1,5 @@
 import React from "react";
-import Info from "../info";
+import InfoPanel from "../info-panel";
 import Game from "../game";
 
 import './app.scss';
@@ -63,12 +63,12 @@ export default class App extends React.Component {
                            restartEnd = {this.restartEnd}/>;
 
 
-        const info = <Info moves={countMoves}
-                           playerWin={playerWin}
-                           playerLose={playerLose}
-                           winner={winner}
-                           restartAction ={this.restartAction}
-                           continueAction ={this.continueAction}/>
+        const info = <InfoPanel moves={countMoves}
+                                playerWin={playerWin}
+                                playerLose={playerLose}
+                                winner={winner}
+                                restartAction ={this.restartAction}
+                                continueAction ={this.continueAction}/>;
         return (
             <div className="container">
                 <div className="row ">
