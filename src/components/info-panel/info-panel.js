@@ -1,5 +1,5 @@
 import React from "react";
-import {ButtonRestart} from "../buttons";
+import {ButtonRestart} from "../all-buttons";
 import InfoBlock from "../info-block";
 import WinnerBlock from "../winner-block";
 

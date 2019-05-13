@@ -25,7 +25,7 @@ export default class GameLogic {
                 field[i].push(new EmptyCell(i, j));
             }
         }
-        //create border
+        //create border around field
         for (let i = 0; i < fieldSize + 2; i++) {
             field[0][i] = new BorderCell();
             field[i][0] = new BorderCell();
@@ -59,7 +59,6 @@ export default class GameLogic {
     calculateNextMove = () => {
         const {field, fieldSize} = this;
 
-
         for (let i = 1; i < fieldSize + 1; i++) {
             for (let j = 1; j < fieldSize + 1; j++) {
                 const tempCell = field[i][j];
@@ -74,41 +73,40 @@ export default class GameLogic {
     //various variants are computed with a sequence connection
     searchPotentialIntersections = (cell) => {
         const nearCells = this.getArrayNearCells(cell);
-        nearCells.forEach((neighbour, namberDirection) => {
+        nearCells.forEach((neighbour, numberDirection) => {
             if (isItStep(neighbour)) {
                 if (isHaveSameType(cell, neighbour) || isItBorder(neighbour)) {
-                    this.recalculationPotentialIdenticalCells(cell, neighbour, namberDirection)
+                    this.recalculationPotentialIdenticalCells(cell, neighbour, numberDirection)
                 }
 
-                if (isHaveOppositeType(cell, neighbour) && cell.stepPotential[namberDirection] <= -10) {
-                    this.recalculationPotentialOppositeTypeCells(cell, neighbour, namberDirection)
+                if (isHaveOppositeType(cell, neighbour) && cell.stepPotential[numberDirection] <= -10) {
+                    this.recalculationPotentialOppositeTypeCells(cell, neighbour, numberDirection)
                 }
 
             }
         })
 
     };
-    recalculationPotentialOppositeTypeCells = (cell, neighbour, namberDirection) => {
+    recalculationPotentialOppositeTypeCells = (cell, neighbour, numberDirection) => {
         const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
-        cell.stepPotential[namberDirection] = -100;
-        cell.stepPotential[oppositeSides[namberDirection]] = -1;
+        cell.stepPotential[numberDirection] = -100;
+        cell.stepPotential[oppositeSides[numberDirection]] = -1;
 
 
     }
 
-    recalculationPotentialIdenticalCells = (cell, neighbour, namberDirection) => {
+    recalculationPotentialIdenticalCells = (cell, neighbour, numberDirection) => {
         const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
-        const num = cell.stepPotential[namberDirection];
-        neighbour.stepPotential[namberDirection] += cell.stepPotential[namberDirection];
-        cell.stepPotential[oppositeSides[namberDirection]] += neighbour.stepPotential[oppositeSides[namberDirection]];
-        cell.stepPotential[namberDirection] = 0;
-        neighbour.stepPotential[oppositeSides[namberDirection]] = 0;
+        const num = cell.stepPotential[numberDirection];
+        neighbour.stepPotential[numberDirection] += cell.stepPotential[numberDirection];
+        cell.stepPotential[oppositeSides[numberDirection]] += neighbour.stepPotential[oppositeSides[numberDirection]];
+        cell.stepPotential[numberDirection] = 0;
+        neighbour.stepPotential[oppositeSides[numberDirection]] = 0;
 
     }
 
 
     getArrayNearCells = ({y, x}) => {
-
         const {field} = this;
         return [
             field[y - 1][x], field[y - 1][x + 1],
@@ -145,6 +143,7 @@ export default class GameLogic {
             case 7:
                 return field[y - 1][x - 1];
                 break;
+            default : return null;
         }
     }
 
@@ -203,7 +202,6 @@ export default class GameLogic {
 
                             const intersectionPotential = countDangerousPotentials >= 2 ? 3 : cell.stepPotential[direction];
 
-
                             resField[neighbour.y][neighbour.x] = Math.max(resField[neighbour.y][neighbour.x], value1 + value2, intersectionPotential);
                         }
 
@@ -259,7 +257,6 @@ export default class GameLogic {
     };
 
     oneLineMatch = (cell, direction, count, array) => {
-
         if (count === 5) {
             return array
         }
@@ -306,7 +303,7 @@ export default class GameLogic {
     }
 }
 
-//contanes info-panel about step player or pc
+//contains info about step player or pc
 class Step {
     constructor(type, x, y) {
         this.type = type;

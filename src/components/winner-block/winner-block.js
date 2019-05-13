@@ -1,5 +1,5 @@
 import React from "react";
-import {ButtonContinue} from "../buttons";
+import {ButtonContinue} from "../all-buttons";
 import InfoBlock from "../info-block";
 
 const WinnerBlock = ({winner, continueAction}) => {

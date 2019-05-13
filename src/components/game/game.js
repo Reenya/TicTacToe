@@ -20,7 +20,7 @@ export default class Game extends React.Component {
         })
     };
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate = (prevProps) => {
 
         if (prevProps.restart === false && this.props.restart === true) {
             this.gameRestart();
@@ -72,9 +72,9 @@ export default class Game extends React.Component {
         const {fieldSize, winSequence, field} = this.state;
 
         if (!field) return [];
-        //mark win sequence
-        const copyField = field.slice();
 
+        const copyField = field.slice();
+        //mark win sequence
         winSequence.forEach((item) => {
             copyField[item.y][item.x].win = true;
         });
@@ -99,7 +99,7 @@ export default class Game extends React.Component {
     render() {
         return (
             <GameRender field={this.fieldRender()}
-                       playerMove={this.playerMove}/>
+                        playerMove={this.playerMove}/>
         )
 
     }
