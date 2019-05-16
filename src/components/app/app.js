@@ -26,19 +26,6 @@ export default class App extends React.Component {
             winner: null
         });
     }
-    restartAction = () => {
-        this.setState({
-            countMoves: 0,
-            playerWin: 0,
-            playerLose: 0,
-            restart:true
-        });
-
-    };
-
-    restartEnd = () => {
-        this.setState({restart:false})
-    }
 
     setWinner = (win) => {
         if (win==='player') {
@@ -54,6 +41,20 @@ export default class App extends React.Component {
         }
     };
 
+    restartAction = () => {
+        this.setState({
+            countMoves: 0,
+            playerWin: 0,
+            playerLose: 0,
+            restart:true
+        });
+
+    };
+
+    restartEnd = () => {
+        this.setState({restart:false})
+    }
+
     render() {
         const {countMoves, playerWin, playerLose, winner,restart} = this.state;
 
@@ -63,21 +64,22 @@ export default class App extends React.Component {
                            restartEnd = {this.restartEnd}/>;
 
 
-        const info = <InfoPanel moves={countMoves}
+        const infoPanel = <InfoPanel moves={countMoves}
                                 playerWin={playerWin}
                                 playerLose={playerLose}
                                 winner={winner}
                                 restartAction ={this.restartAction}
                                 continueAction ={this.continueAction}/>;
+
         return (
             <div className="container">
-                <div className="row ">
+                <div className="row">
                     <h1 className='title col-lg-1'>TicTacToy</h1>
                 </div>
 
                 <div className="row justify-content-center">
                     {game}
-                    {info}
+                    {infoPanel}
                 </div>
 
             </div>

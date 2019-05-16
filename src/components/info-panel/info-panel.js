@@ -10,7 +10,7 @@ const InfoPanel =({restartAction,continueAction,playerWin,playerLose,winner,move
         const winMessage = winner? <WinnerBlock winner={winner}
                                            continueAction = {continueAction}/> : null;
         return (
-            <div className='col-lg-4  col-md-12'>
+            <div className='col-xl-4 col-lg-3  col-md-12'>
 
                 {winMessage}
 

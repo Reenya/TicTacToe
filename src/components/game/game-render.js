@@ -28,7 +28,7 @@ export default class GameRender extends React.Component {
 
         return (
 
-                <div className=" col-lg-7  col-md-12">
+                <div className="col-xl-7 col-lg-8  col-md-12">
                     <table className="game-field">
                         <tbody>
                         {gameField}

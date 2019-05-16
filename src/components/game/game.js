@@ -66,7 +66,7 @@ export default class Game extends React.Component {
         }
 
 
-    }
+    };
 
     fieldRender = () => {
         const {fieldSize, winSequence, field} = this.state;
