@@ -1,7 +1,7 @@
 import React from "react";
 import GameLogic from "./game-logic";
 import GameRender from "./game-render";
-import {isItStep} from "./checkTypes";
+import {isItStep} from "./check-types";
 
 export default class Game extends React.Component {
     state = {
@@ -57,7 +57,7 @@ export default class Game extends React.Component {
                         winner: res.winner,
                         winSequence: res.winSequence,
                         gameEnd: true
-                    })
+                    });
                     this.props.setWinner(res.winner);
                 }
                 this.props.changeCountMoves();

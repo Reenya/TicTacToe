@@ -53,7 +53,7 @@ export default class App extends React.Component {
 
     restartEnd = () => {
         this.setState({restart:false})
-    }
+    };
 
     render() {
         const {countMoves, playerWin, playerLose, winner,restart} = this.state;

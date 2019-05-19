@@ -1,5 +1,4 @@
-import React from "react";
-import {isHaveOppositeType, isHaveSameType, isItBorder, isItEmpty, isItStep} from './checkTypes';
+import {isHaveOppositeType, isHaveSameType, isItBorder, isItEmpty, isItStep} from './check-types';
 
 export default class GameLogic {
 
@@ -93,7 +92,7 @@ export default class GameLogic {
         cell.stepPotential[oppositeSides[numberDirection]] = -1;
 
 
-    }
+    };
 
     recalculationPotentialIdenticalCells = (cell, neighbour, numberDirection) => {
         const oppositeSides = [4, 5, 6, 7, 0, 1, 2, 3];
@@ -103,7 +102,7 @@ export default class GameLogic {
         cell.stepPotential[numberDirection] = 0;
         neighbour.stepPotential[oppositeSides[numberDirection]] = 0;
 
-    }
+    };
 
 
     getArrayNearCells = ({y, x}) => {
@@ -235,8 +234,6 @@ export default class GameLogic {
                 this.findCrossesNeighbour(field[i][j]);
             }
         }
-
-
     }
 
     findCrossesNeighbour(cell) {
@@ -264,42 +261,11 @@ export default class GameLogic {
             const neighbours = this.getNearCell(cell, direction);
             if (!isHaveSameType(cell, neighbours)) {
                 return null
-            }
-            ;
+            };
 
             return this.oneLineMatch(neighbours, direction, count + 1, [...array, neighbours]);
 
         }
-    }
-
-    //generate array of game field with values for correct render
-    fieldRender = () => {
-        const {winSequence, readyField} = this.state;
-        const {field, fieldSize} = this;
-
-
-        if (!readyField) return [];
-        //mark win sequence
-        const copyField = readyField.slice();
-
-        winSequence.forEach((item) => {
-            copyField[item.y][item.x].win = true;
-        });
-
-        const newField = [];
-        for (let i = 1; i < fieldSize + 1; i++) {
-            newField[i - 1] = [];
-            for (let j = 1; j < fieldSize + 1; j++) {
-                const item = copyField [i][j];
-                const markWin = item.win ? 'mark-win' : null;
-                if (!isItStep(item)) newField[i - 1].push(' ');
-                else {
-                    if (item.type === 'player') newField[i - 1].push(<i className={`fa fa-times ${markWin}`}></i>)
-                    else newField[i - 1].push(<i className={`fa fa-circle-o ${markWin}`}></i>)
-                }
-            }
-        }
-        return newField;
     }
 }
 
